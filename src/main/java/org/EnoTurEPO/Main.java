@@ -6,8 +6,16 @@ import org.EnoTurEPO.Reviews.WebExtractor;
 import java.io.FileReader;
 import java.net.URL;
 
+/**
+ * Main class for EnoTurEPO project
+ *
+ * @author Miguel Ferreiro Díaz
+ */
 public class Main {
 
+    /**
+     * The main method for the running application
+     */
     public static void main(String[] args) {
 
         System.setProperty("webdriver.gecko.driver", "src/main/resources/geckodriver.exe");

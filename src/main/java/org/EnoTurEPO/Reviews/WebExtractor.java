@@ -30,21 +30,68 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * Manager of wineries in Google Maps
+ *
+ * @author Miguel Ferreiro Díaz
+ */
+
 public class WebExtractor {
 
     /**
      * A language detector to guess the language
      */
     private LanguageDetector languageDetector;
+
+    /**
+     * A instance of CSVDatasetWriter which manage the CSV of winery information
+     */
     private final CSVDatasetWriter outputPlacesCSV;
+
+    /**
+     * A instance of CSVDatasetWriter which manage the CSV of winery reviews
+     */
     private final CSVDatasetWriter outputReviewsCSV;
+
+    /**
+     * The folder name where emoticons file is located
+     */
     private final String emoticonsFolder;
+
+    /**
+     * The folder name where emojis file is located
+     */
     private final String emojisFolder;
+
+    /**
+     * A map with the winery information
+     */
     private Map<String, Object> placesCSV;
+
+    /**
+     * A map with the winery reviews
+     */
     private Map<String, Object> reviewsCSV;
+
+    /**
+     * A hashmap with the emoji dictionary
+     */
     private HashMap<String, Trio<Pattern, String, Double>> emojiDictionary;
+
+    /**
+     * A hashmap with the emoticon dictionary
+     */
     private HashMap<String, Trio<Pattern, String, Double>> emoticonDictionary;
 
+    /**
+     * Constructs a new instance of {@link WebExtractor}
+     *
+     * @param csvFilePlaces Output file path with winery information
+     * @param csvFileReviews Output file path with winery reviews
+     * @param emoticonsFolder Path of the folder where the emoticon files containing <emoticon,<polarity, synsetID>> are located
+     * @param emojisFolder Path of the folder where the emoji files containing <emoji,<polarity, synsetID>> are located
+     * @throws FileNotFoundException if the files do not exist
+     */
     public WebExtractor(String csvFilePlaces, String csvFileReviews, String emoticonsFolder, String emojisFolder) throws FileNotFoundException {
 
         try {
@@ -75,6 +122,9 @@ public class WebExtractor {
         this.loadEmoticonDictionary();
     }
 
+    /**
+     * Initializes the CSV header which contains the winery information
+     */
     public void initializePlacesCSV() {
 
         this.placesCSV.put("winery", 0);
@@ -101,6 +151,9 @@ public class WebExtractor {
         this.outputPlacesCSV.addColumns(columns, this.placesCSV.values().toArray());
     }
 
+    /**
+     * Initializes the CSV header which contains the winery reviews
+     */
     public void initializeReviewsCSV() {
 
         this.reviewsCSV.put("title", 0);
@@ -134,6 +187,11 @@ public class WebExtractor {
         this.outputReviewsCSV.addColumns(columns,this.reviewsCSV.values().toArray());
     }
 
+    /**
+     * Loads the emojis dictionary from a .json file to a HashMap
+     *
+     * @throws FileNotFoundException if the emoji file does not exist
+     */
     public void loadEmojiDictionary() throws FileNotFoundException {
 
         this.emojiDictionary = new HashMap<>();
@@ -152,6 +210,11 @@ public class WebExtractor {
         }
     }
 
+    /**
+     * Loads the emoticons dictionary from a .json file to a HashMap
+     *
+     * @throws FileNotFoundException if the emoticon file does not exist
+     */
     public void loadEmoticonDictionary() throws FileNotFoundException {
 
         this.emoticonDictionary = new HashMap<>();
@@ -169,6 +232,14 @@ public class WebExtractor {
         }
     }
 
+    /**
+     * Starts processing all the data from winery
+     *
+     * @param name Winery name
+     * @param origin Winery's designation of origin
+     * @param url Google Maps web address where the winery is located
+     * @throws InterruptedException if any thread has interrupted the current thread during the execution of Thread.sleep
+     */
     public void run(String name, String origin, URL url) throws InterruptedException {
 
         this.placesCSV = new LinkedHashMap<>();
@@ -558,6 +629,12 @@ public class WebExtractor {
         System.out.println("--- End of data collection from winery " + name + " ---");
     }
 
+    /**
+     * Detects and replaces the emojis found by their textual representation and calculates their polarity
+     *
+     * @param text Text to be processed
+     * @return Trio structure with the text modified, the emojis found and the polarity calculated
+     */
     public Trio<String, String, Double> manageEmojis(String text) {
 
         String value = "";
@@ -585,6 +662,12 @@ public class WebExtractor {
         return  new Trio<>(sb.toString().trim(), value, mean) ;
     }
 
+    /**
+     * Detects and replaces the emoticons found by their textual representation and calculates their polarity
+     *
+     * @param text Text to be processed
+     * @return Trio structure with the text modified, the emoticons found and the polarity calculated
+     */
     public Trio<String, String, Double> manageEmoticons(String text) {
 
         String value = "";
