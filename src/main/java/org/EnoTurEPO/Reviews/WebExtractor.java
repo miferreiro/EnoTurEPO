@@ -13,6 +13,7 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Cookie;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -281,18 +282,26 @@ public class WebExtractor {
             wait.until(ExpectedConditions.presenceOfAllElementsLocatedBy(By.className("section-hero-header-title-title")));
             Thread.sleep(3000);
             doc = Jsoup.parse(driver.getPageSource()).normalise();
-            Thread.sleep(3000);
-            if (driver.findElements(By.cssSelector("a[aria-labelledby=\"card-label-Todas\"]")).size() != 0) {
-                driver.findElement(By.cssSelector("a[aria-labelledby=\"card-label-Todas\"]")).click();
+            Thread.sleep(1000);
+            js = (JavascriptExecutor) driver;
+            js.executeScript("document.getElementById(\"consent-bump\").remove()");
+            Thread.sleep(1000);
+            if (driver.findElements(By.cssSelector("button[aria-labelledby=\"card-label-Todas\"]")).size() != 0) {
+                driver.findElement(By.cssSelector("button[aria-labelledby=\"card-label-Todas\"]")).click();
                 Thread.sleep(3000);
                 js = (JavascriptExecutor) driver;
-                while (driver.findElements(By.className("section-loading")).size() > 0) {
+                while (driver.findElements(By.className("section-" +
+                        "loading")).size() > 0) {
                     js.executeScript("document.getElementsByClassName(\"section-loading\")[0].scrollIntoView()");
                     Thread.sleep(4000);
                 }
                 docPhotos = Jsoup.parse(driver.getPageSource()).normalise();
                 Thread.sleep(3000);
                 driver.get(url.toExternalForm());
+                Thread.sleep(1000);
+                js = (JavascriptExecutor) driver;
+                js.executeScript("document.getElementById(\"consent-bump\").remove()");
+                Thread.sleep(1000);
             }
             Thread.sleep(3000);
             if (driver.findElements(By.cssSelector("button[jsaction=\"pane.rating.moreReviews\"]")).size() != 0) {
