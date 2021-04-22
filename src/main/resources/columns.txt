@@ -1,0 +1,52 @@
+# outputPlacesCSV.csv
+
+- winery: Nombre inicial de la bodega indicada en el csv de entrada.
+- D.O.: Denominación de origen de la bodega.
+- urlGoogleMaps: Dirección de la bodega en Google Maps.
+- longitude: longitud.
+- latitude: latitud.
+- title: Nombre de la bodega indicada en Google Maps. (ID)
+- ranking: Puntuación media de todas las reviews. Si no hay reviews, el campo valdrá UND.
+- numReviews: Número total de reviews de la bodega.
+- address: Dirección de la bodega. (Si aparecía Pronvice of Ourense se cambió por únicamente en Ourense como era el caso del resto de las direcciones)
+- schedule: Horario de apertura de la bodega. Ejemplo: "martes, De 9:00 a 14:00, De 15:30 a 18:30; miércoles, De 9:00 a 14:00, De 15:30 a 18:30; jueves, De 9:00 a 14:00, De 15:30 a 18:30; viernes, De 9:00 a 14:00, De 15:30 a 18:30; sábado (Asunción de la Virgen), Cerrado, El horario podría cambiar; domingo, Cerrado; lunes, De 9:00 a 14:00, De 15:30 a 18:30""
+- web: Dirección web de la bodega indicada en Google Maps.
+- telephone: Número de telefono indicado en Google Maps.
+- plusCode: Identifican una dirección cualquiera de forma sencilla.
+- stars5: Número de reviews con una valoración de 5 estrellas. Si no hay reviews,este campo tiene el valor -1
+- stars4: Número de reviews con una valoración de 4 estrellas. Si no hay reviews,este campo tiene el valor -1
+- stars3: Número de reviews con una valoración de 3 estrellas. Si no hay reviews,este campo tiene el valor -1
+- stars2: Número de reviews con una valoración de 2 estrellas. Si no hay reviews,este campo tiene el valor -1
+- stars1: Número de reviews con una valoración de 1 estrellas. Si no hay reviews,este campo tiene el valor -1
+- numPhotos: Número de fotos asociadas a la bodega.
+
+# outputReviewsCSV.csv
+
+- title: Nombre de la bodega indicada en Google Maps. (ID)
+- author: Nombre de usuario del autor de la review.
+- isLocalGuide: Los Local Guides de nivel 4 y superior reciben como ventaja la insignia en Google Maps.
+    - (1) Tiene el título de Local Guide.
+    - (0) No tiene el título de Local Guide.
+- numReviewsAuthor: Número de reviews realizadas previamente por el autor (contando el actual)
+- rankingReview: Puntuación que el autor pone a la bodega.
+- dateExtractData: Fecha en la que se extraen los campos. Ejemplo: 11-03-2020.
+- dateReview: Fecha en la que se escribió la review. Ejemplo: Hace un año.
+- textReviewOriginal: Texto original de la review sin traducir.
+- textReview: Texto traducido de la review al español por Google al cual se le sustituyen, primeramente, los emojis y, a continuación, los emoticonos encontrados por su representación textual.
+- emojisTextReview: Emojis encontrados en el texto traducido de la review por Google.
+- emojisPolarityReview: Polaridad de los emojis encontrados en el texto. (Suma del score de cada uno de los emojis entre el número total de emojis).
+- emoticonsTextReview: Emoticonos encontrados en el texto traducido de la review por Google.
+- emoticonsPolarityReview: Polaridad de los emoticonos encontrados en el texto. (Suma del score de cada uno de los emoticonos entre el número total de emojis).
+- langTextReview: Idioma detectado del texto original. Valor UND cuando no se identifica.
+- langReliabilityTextReview: Probabilidad de que sea el idioma detectado. Valor -1 cuando no se ha detectado ningún idioma
+- numPhotoReview: Número de fotos asociados a la review.
+- likesReview: Número de likes de una review.
+- dateAnswer: Fecha en la que se respondió a la review.
+- textAnswerOriginal: Texto original de la respuesta por parte del propietario sin traducir.
+- textAnswer: Texto traducido de la respuesta al español por Google.
+- emojisTextAnswer: Emojis encontrados en la respuesta traducido de la review por Google.
+- emojisPolarityAnswer: Polaridad de los emojis encontrados en el texto de la respuesta. (Suma del score de cada uno de los emojis entre el número total de emojis encontrados).
+- emoticonsTextAnswer: Emoticonos encontrados en la respuesta por parte del propietario.
+- emoticonsPolarityAnswer: Polaridad de los emoticonos encontrados en el texto de la respuesta. (Suma del score de cada uno de los emoticonos entre el número total de emoticonos encontrados).
+- langTextAnswer: Idioma detectado del texto original. Valor UND cuando no se identifica.
+- langReliabilityTextAnswer: Probabilidad de que sea el idioma detectado. Valor -1 cuando no se ha detectado ningún idioma
